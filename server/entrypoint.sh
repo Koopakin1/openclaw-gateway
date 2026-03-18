@@ -134,7 +134,7 @@ echo "       COM1 → /dev/ttyV0 (символическая ссылка соз
 # пользователь подменит его на реальный бинарник через volume mount.
 echo "[7/7] Запуск Scanmatik.exe через Wine..."
 
-SCANMATIK_EXE="/app/Scanmatik.exe"
+SCANMATIK_EXE="/app/smwin.exe"
 
 if [ -f "$SCANMATIK_EXE" ]; then
     wine "$SCANMATIK_EXE" &

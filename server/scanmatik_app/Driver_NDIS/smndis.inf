@@ -1,0 +1,130 @@
+; Installation inf file for the Scanmatik USB-NDIS driver
+;
+; (c) Copyright 2024 Scanmatik
+;
+
+[version]
+Signature      = "$Windows NT$"
+Class          = Net
+ClassGUID      = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider       = %MFGNAME%
+DriverVer      = 09/09/2024,1.00.00.18
+CatalogFile.NT = smndis.cat
+
+[ControlFlags]
+ExcludeFromSelect=USB\VID_20A2&PID_0001
+ExcludeFromSelect=USB\VID_20A2&PID_0002
+
+[Manufacturer]
+%MFGNAME% = DeviceList,NTx86.6.0,NTamd64.6.0,NTarm.6.0,NTarm64.6.0
+
+[DeviceList]
+; Empty section to block legacy operating systems that don't understand TargetOSVersion
+
+; For Win7 and later
+[DeviceList.NTx86.6.0]
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0001
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0002
+
+[DeviceList.NTamd64.6.0]
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0001
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0002
+
+[DeviceList.NTarm.6.0]
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0001
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0002
+
+[DeviceList.NTarm64.6.0]
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0001
+%DeviceDesc%    = SmNdis_ndi, USB\VID_20A2&PID_0002
+
+;-------------------------------------------------------------------------------
+; Scanmatik USB-NDIS
+;
+[SmNdis_ndi]
+Characteristics    = 0x84 ; NCF_PHYSICAL, NCF_HAS_UI
+BusType		       = 15 ; if you specify NCF_PHYSICAL, you must specify bustype (PNPBus)
+*IfType            = 0x6 ; IF_TYPE_ETHERNET_CSMACD
+*MediaType         = 0x0 ; NdisMedium802_3
+*PhysicalMediaType = 14 ; NdisPhysicalMedium802_3
+AddReg             = SmNdis_AddReg, ParamsPromiscuous_AddReg
+CopyFiles          = SmNdis_CopyFiles
+
+[SmNdis_ndi.Services]
+AddService      = SmNdis, 2, SmNdis_Service, SmNdis.EventLog
+
+;-----------------------------------------------------------------------------
+; Scanmatik USB-NDIS Miniport Common
+;
+[SmNdis_AddReg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "SmNdis"
+HKR, Ndi\Interfaces,              UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,          0, "ethernet"
+
+[ParamsPromiscuous_AddReg]
+HKR, Ndi\Params\Promiscuous,     ParamDesc, , %Promiscuous%
+HKR, Ndi\Params\Promiscuous,     Default,  ,"0"
+HKR, Ndi\Params\Promiscuous,     type, ,      enum
+HKR, Ndi\Params\Promiscuous\enum,"1",  ,     %Promiscuous_Enable%
+HKR, Ndi\Params\Promiscuous\enum,"0",  ,     %Promiscuous_Disable%
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;
+[SmNdis_CopyFiles]
+smndis.sys,,,2
+
+[SmNdis_Service]
+DisplayName     = %Service_DispName%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 3 ;SERVICE_DEMAND_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\smndis.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[SmNdis.EventLog]
+AddReg = SmNdis.AddEventLog.Reg
+
+[SmNdis.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles.x86]
+smndis.sys = 1,\x86
+
+[SourceDisksFiles.amd64]
+smndis.sys = 1,\x64
+
+[SourceDisksFiles.arm]
+smndis.sys = 1,\ARM
+
+[SourceDisksFiles.arm64]
+smndis.sys = 1,\ARM64
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+SmNdis_CopyFiles = 12
+
+
+;-----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+MFGNAME                   = "Scanmatik"                      
+DeviceDesc                = "Scanmatik USB-NDIS"
+Service_DispName          = "Scanmatik USB-NDIS Service"
+DiskId1                   = "Scanmatik USB-NDIS Device Installation Disk #1"
+Promiscuous               = "Promiscuous mode"
+Promiscuous_Disable       = "Disable"
+Promiscuous_Enable        = "Enable"
+

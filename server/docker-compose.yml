@@ -34,9 +34,8 @@ services:
       - "9000:9000"
 
     # Монтирование директории с EXE-файлом Сканматика
-    # Раскомментируйте и укажите путь к вашему Scanmatik.exe:
-    # volumes:
-    #   - /path/to/scanmatik/folder:/app
+    volumes:
+      - "./scanmatik_app:/app"
 
     # Переменные окружения
     environment:
