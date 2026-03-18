@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">USB-TCP Gateway</string>
+    <string name="hint_ip">IP-адрес сервера</string>
+    <string name="hint_port">Порт</string>
+    <string name="btn_start">Старт туннеля</string>
+    <string name="btn_stop">Стоп туннеля</string>
+    <string name="label_usb">USB-устройство</string>
+    <string name="label_tcp">TCP-сервер</string>
+    <string name="status_connected">Подключено</string>
+    <string name="status_not_found">Не найдено</string>
+    <string name="status_online">На связи</string>
+    <string name="status_searching">Поиск сети…</string>
+    <string name="status_disconnected">Отключен</string>
+    <string name="notif_channel_name">Tunnel Service</string>
+    <string name="notif_title">USB-TCP Gateway</string>
+    <string name="notif_text">Туннель активен</string>
+</resources>

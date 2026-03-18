@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
+
+    <!-- ===== Header ===== -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USB → TCP GATEWAY"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- ===== Server Settings ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <EditText
+            android:id="@+id/etIpAddress"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="3"
+            android:hint="@string/hint_ip"
+            android:inputType="text"
+            android:textColor="@color/on_surface"
+            android:textColorHint="@color/input_hint"
+            android:background="@color/input_bg"
+            android:fontFamily="monospace"
+            android:textSize="14sp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:singleLine="true"
+            android:layout_marginEnd="8dp" />
+
+        <EditText
+            android:id="@+id/etPort"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="@string/hint_port"
+            android:inputType="number"
+            android:textColor="@color/on_surface"
+            android:textColorHint="@color/input_hint"
+            android:background="@color/input_bg"
+            android:fontFamily="monospace"
+            android:textSize="14sp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <!-- ===== Start / Stop Button ===== -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnToggle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="@string/btn_start"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- ===== Status Indicators ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical">
+
+        <!-- USB Status -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:id="@+id/dotUsb"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/status_dot"
+                android:backgroundTint="@color/status_red"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tvUsbStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USB: Не найдено"
+                android:textColor="@color/on_surface"
+                android:fontFamily="monospace"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- TCP Status -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:id="@+id/dotTcp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/status_dot"
+                android:backgroundTint="@color/status_red"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tvTcpStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TCP: Отключен"
+                android:textColor="@color/on_surface"
+                android:fontFamily="monospace"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===== Divider ===== -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/input_bg"
+        android:layout_marginBottom="8dp" />
+
+    <!-- ===== Terminal Log ===== -->
+    <ScrollView
+        android:id="@+id/scrollLog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/terminal_bg"
+        android:padding="8dp"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/tvLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/terminal_text"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:text=""
+            android:gravity="bottom" />
+    </ScrollView>
+
+</LinearLayout>

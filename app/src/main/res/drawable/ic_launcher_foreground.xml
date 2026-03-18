@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground: USB ↔ TCP arrows icon using vector paths -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- USB plug shape (left side) -->
+    <path
+        android:fillColor="#FF00BFA5"
+        android:pathData="M28,46 L28,62 L36,62 L36,56 L40,56 L40,52 L36,52 L36,46 Z" />
+
+    <!-- Right arrow (USB → TCP) -->
+    <path
+        android:fillColor="#FF00BFA5"
+        android:pathData="M44,50 L60,50 L60,44 L72,54 L60,64 L60,58 L44,58 Z" />
+
+    <!-- Left arrow (TCP → USB) — shown below -->
+    <path
+        android:fillColor="#FF80CBC4"
+        android:pathData="M64,68 L48,68 L48,74 L36,64 L48,54 L48,60 L64,60 Z"
+        android:alpha="0.6" />
+
+    <!-- Network/server symbol (right side) -->
+    <path
+        android:fillColor="#FF00BFA5"
+        android:pathData="M72,46 L80,46 L80,62 L72,62 Z" />
+    <path
+        android:fillColor="#FF00BFA5"
+        android:pathData="M74,42 L78,42 L78,66 L74,66 Z" />
+</vector>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Broad USB filter: matches any USB device so the scanner is always caught -->
+<resources>
+    <usb-device />
+</resources>
