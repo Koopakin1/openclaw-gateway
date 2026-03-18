@@ -1,0 +1,51 @@
+# ==============================================================================
+# docker-compose.yml — Scanmatik-Web
+# ==============================================================================
+# Запускает контейнер с Wine + noVNC + виртуальным COM-портом.
+#
+# Использование:
+#   docker-compose up --build        — собрать и запустить
+#   docker-compose up -d             — запустить в фоне
+#   docker-compose logs -f           — смотреть логи
+#   docker-compose down              — остановить
+#
+# После запуска:
+#   Браузер → http://localhost:8080/vnc.html  (экран Wine)
+#   Android-шлюз → подключается к <IP сервера>:9000
+# ==============================================================================
+
+version: "3.8"
+
+services:
+  scanmatik-web:
+    # Имя контейнера для удобства
+    container_name: scanmatik-web
+
+    # Сборка из текущей директории (где лежит Dockerfile)
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Проброс портов наружу
+    ports:
+      # 8080 — noVNC: доступ к экрану Wine через браузер
+      - "8080:8080"
+      # 9000 — TCP: приём диагностических данных от Android-шлюза
+      - "9000:9000"
+
+    # Монтирование директории с EXE-файлом Сканматика
+    # Раскомментируйте и укажите путь к вашему Scanmatik.exe:
+    # volumes:
+    #   - /path/to/scanmatik/folder:/app
+
+    # Переменные окружения
+    environment:
+      - DISPLAY=:0
+      - WINEPREFIX=/root/.wine
+      - WINEARCH=win32
+
+    # Контейнер перезапускается при падении
+    restart: unless-stopped
+
+    # Выделяем больше shared memory для X11
+    shm_size: "256m"
